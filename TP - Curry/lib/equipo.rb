@@ -2,18 +2,16 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-class Jugador
+class Equipo
   def initialize
     
   end
   
   @nombre
-  @porcentajeDeTirosDeCancha
-  @porcentajeDeTirosDeTresPuntos
-  @rebotesPorPartido
-  @asistenciasPorJuego
-  @bloqueosPorJuego
-  @robosPorJuego
-  @perdidasPorJuego
-  @puntosPorPartido
+  @directorTecnico
+  @base
+  @alero
+  @alaPivote
+  @escolta
+  @pivote
 end
