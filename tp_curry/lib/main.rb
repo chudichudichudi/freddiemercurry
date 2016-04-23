@@ -16,4 +16,5 @@ j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
 e1 = Equipo.new("equipo1", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
 e2 = Equipo.new("equipo2", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
 simulacion = SimulacionEnCurso.new(e1, e2)
+
 puts simulacion

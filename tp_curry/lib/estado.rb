@@ -21,20 +21,34 @@ class Estado
 	def siguienteTurno
 	end
 
+  def posesion
+  end
+
+  def turnoActual
+  end
 
 end
 
 
 class EnCurso<Estado
 	attr_reader :equipoDesafiante, :equipoDesafiado,
-      :puntajeDesafiante, :puntajeDesafiado
+      :puntajeDesafiante, :puntajeDesafiado, :numeroDeTurno,
+      :equipoAtacante, :cantidadDeTurnos
+
   
    
-  def initialize(equipoDesafiante, equipoDesafiado)
+  def initialize(equipoDesafiante, equipoDesafiado, turnosAJugar)
+    @turnosAJugar = turnosAJugar
     @equipoDesafiante = equipoDesafiante
     @equipoDesafiado = equipoDesafiado
     # Una simulación siempre empieza 0-0
     @puntajeDesafiante = @puntajeDesafiado = 0
+    @numeroDeTurno = 1
+    @historialDeTurnos = []
+
+    elPrimerTurno = Turno.new(A)
+    @historialDeTurnos.add(elPrimerTurno)
+
   end
   
   def to_s()
@@ -43,10 +57,16 @@ class EnCurso<Estado
       "-" + @puntajeDesafiado.to_s()
   end
   
-  @equipoDesafiante
-  @equipoDesafiado
-  @puntajeDesafiante
-  @puntajeDesafiado
+  def siguienteTurno
+    @puntajeDesafiado += @historialDeTurnos.last().obtenerDePuntajeDe(@equipoDesafiado)
+    @puntajeDesafiante += @historialDeTurnos.last().obtenerDePuntajeDe(@equipoDesafiante)
+    if (@historialDeTurnos.size() < @turnosAJugar)
+      equipoAtacante = @historialDeTurnos.last().quieneTieneLaProximaPosesion()
+      unNuevoTurno = Turno.new(equipoAtacante,theOtherOne)
+      historialDeTurnos.add(elPrimerTurno)
+    end
+    
+  end
 end
 
 class Terminado<Estado
@@ -67,6 +87,9 @@ class Terminado<Estado
       "-" + @puntajeDesafiado.to_s()
   end
   
+  def siguienteTurno
+    raise 'El partido ya está finalizado.'
+  end
   @equipoDesafiante
   @equipoDesafiado
   @puntajeDesafiante
