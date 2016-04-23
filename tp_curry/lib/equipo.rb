@@ -4,9 +4,10 @@
 # and open the template in the editor.
 
 class Equipo
-  def initialize(nombre, directorTecnico, base, alero, alaPivote, escolta, pivote)
+  attr_reader :nombre, :tecnico, :base, :alero, :alaPivote, :escolta, :pivote
+  def initialize(nombre, tecnico, base, alero, alaPivote, escolta, pivote)
     @nombre = nombre
-    @directorTecnico = directorTecnico
+    @tecnico = tecnico
     @base = base
     @alero = alero
     @alaPivote = alaPivote
@@ -17,4 +18,15 @@ class Equipo
   def to_s
   	@nombre
   end
+
+  def ==(o)
+    o.class == self.class && o.state == self.state
+  end
+
+  protected
+
+  def state
+    self.instance_variables.map { |variable| self.instance_variable_get variable }
+  end
+
 end
