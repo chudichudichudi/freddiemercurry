@@ -4,7 +4,7 @@
 # and open the template in the editor.
 
 class Turno
-	attr_reader: :atacante, :defensor, 
+	attr_reader :atacante, :defensor, 
 	:puntosAtacante, :puntosDefensor
 
 	def initialize(atacante, defensor)
@@ -12,8 +12,6 @@ class Turno
 		@defensor = defensor
 		@puntosDefensor = 0
 		@puntosAtacante = 0
-
-		end
   	end
 
   	def obtenerPuntajeDe(equipo)
@@ -24,6 +22,8 @@ class Turno
   		return @defensor
   	end
 
-  	
+  	def posesion
+  		return @atacante
+  	end
 
 end

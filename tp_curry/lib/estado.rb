@@ -19,18 +19,21 @@ class Estado
   end
   
 	def siguienteTurno
+    raise "no implementado"
 	end
 
   def posesion
+    raise "no implementado"
   end
 
   def turnoActual
+    raise "no implementado"
   end
 
 end
 
 
-class EnCurso<Estado
+class EstadoEnCurso<Estado
 	attr_reader :equipoDesafiante, :equipoDesafiado,
       :puntajeDesafiante, :puntajeDesafiado, :numeroDeTurno,
       :equipoAtacante, :cantidadDeTurnos
@@ -43,11 +46,10 @@ class EnCurso<Estado
     @equipoDesafiado = equipoDesafiado
     # Una simulación siempre empieza 0-0
     @puntajeDesafiante = @puntajeDesafiado = 0
-    @numeroDeTurno = 1
     @historialDeTurnos = []
 
-    elPrimerTurno = Turno.new(A)
-    @historialDeTurnos.add(elPrimerTurno)
+    elPrimerTurno = Turno.new(equipoDesafiado,equipoDesafiante)
+    @historialDeTurnos.push(elPrimerTurno)
 
   end
   
@@ -57,15 +59,31 @@ class EnCurso<Estado
       "-" + @puntajeDesafiado.to_s()
   end
   
+  def elOtroEquipo(equipo)
+    return (equipo == @equipoDesafiado)? @equipoDesafiante : @equipoDesafiado;
+  end
+
   def siguienteTurno
-    @puntajeDesafiado += @historialDeTurnos.last().obtenerDePuntajeDe(@equipoDesafiado)
-    @puntajeDesafiante += @historialDeTurnos.last().obtenerDePuntajeDe(@equipoDesafiante)
+    @puntajeDesafiado += ultimoTurno().obtenerPuntajeDe(@equipoDesafiado)
+    @puntajeDesafiante += ultimoTurno().obtenerPuntajeDe(@equipoDesafiante)
     if (@historialDeTurnos.size() < @turnosAJugar)
-      equipoAtacante = @historialDeTurnos.last().quieneTieneLaProximaPosesion()
-      unNuevoTurno = Turno.new(equipoAtacante,theOtherOne)
-      historialDeTurnos.add(elPrimerTurno)
+      equipoAtacante = ultimoTurno().quienTieneLaProximaPosesion()
+      equipoDefensor = elOtroEquipo(equipoAtacante)
+      unNuevoTurno = Turno.new(equipoAtacante, equipoDefensor)
+      @historialDeTurnos.push(unNuevoTurno)
     end
-    
+  end
+
+  def turnoActual
+    return @historialDeTurnos.size()
+  end
+
+  def ultimoTurno
+    @historialDeTurnos[-1]
+  end
+
+  def posesion
+    return ultimoTurno().posesion
   end
 end
 

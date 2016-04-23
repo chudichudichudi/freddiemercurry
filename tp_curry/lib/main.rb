@@ -6,10 +6,23 @@
 ## Habría que ir organizando tests de verdad... (Andrés)
 require_relative "jugador.rb"
 require_relative "equipo.rb"
-require_relative "simulacion_en_curso.rb"
+require_relative "simulacion.rb"
+require_relative "turno.rb"
+require_relative "estado.rb"
 
 e1 = Equipo.new("equipo1", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
 e2 = Equipo.new("equipo2", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
-simulacion = SimulacionEnCurso.new(e1, e2)
+simulacion = Simulacion.new(e1, e2,40)
 
 puts simulacion
+
+puts "Turno: " + simulacion.turnoActual().to_s()
+puts "Le toca a: " + simulacion.posesion().to_s()
+simulacion.siguienteTurno()
+puts "Turno: " + simulacion.turnoActual().to_s()
+puts "Le toca a: " + simulacion.posesion().to_s()
+simulacion.siguienteTurno()
+puts "Turno: " + simulacion.turnoActual().to_s()
+puts "Le toca a: " + simulacion.posesion().to_s()
+
+

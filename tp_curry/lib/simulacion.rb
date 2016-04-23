@@ -14,7 +14,7 @@ class Simulacion
     # Una simulación siempre empieza 0-0
     @puntajeDesafiante = @puntajeDesafiado = 0
     #TODO: Elegir un equipo atacante al azar
-    @estado = EstadoEnCurso.new(equipoDesafiante,equipoDesafiado, turnosAJugar)
+    @estado = EstadoEnCurso.new(equipoDesafiante,equipoDesafiado,turnosAJugar)
   end
   
   def to_s()
