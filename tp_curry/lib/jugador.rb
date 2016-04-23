@@ -4,6 +4,10 @@
 # and open the template in the editor.
 
 class Jugador
+
+  attr_reader :nombre, :porcentajeDeTirosDeTresPuntos, :porcentajeDeTirosDeCancha, :rebotesPorPartido,
+    :asistenciasPorJuego, :bloqueosPorJuego, :robosPorJuego, :perdidasPorJuego, :puntosPorPartido
+
   def initialize(nombre, porcentajeDeTirosDeCancha, porcentajeDeTirosDeTresPuntos, rebotesPorPartido, asistenciasPorJuego,
                   bloqueosPorJuego, robosPorJuego, perdidasPorJuego, puntosPorPartido)
       @nombre = nombre
@@ -21,4 +25,13 @@ class Jugador
     @nombre
   end
 
+  def ==(o)
+    o.class == self.class && o.state == self.state
+  end
+
+  protected
+
+  def state
+    self.instance_variables.map { |variable| self.instance_variable_get variable }
+  end
 end
