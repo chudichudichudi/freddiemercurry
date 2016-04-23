@@ -8,11 +8,13 @@ class Simulacion
       :puntajeDesafiante, :puntajeDesafiado
   
    
-  def initialize(equipoDesafiante, equipoDesafiado)
+  def initialize(equipoDesafiante, equipoDesafiado,turnosAJugar)
     @equipoDesafiante = equipoDesafiante
     @equipoDesafiado = equipoDesafiado
     # Una simulación siempre empieza 0-0
     @puntajeDesafiante = @puntajeDesafiado = 0
+    #TODO: Elegir un equipo atacante al azar
+    @estado = EstadoEnCurso.new(equipoDesafiante,equipoDesafiado, turnosAJugar)
   end
   
   def to_s()
@@ -21,9 +23,18 @@ class Simulacion
       "-" + @puntajeDesafiado.to_s()
   end
   
-  @equipoDesafiante
-  @equipoDesafiado
-  @estado
+  def siguienteTurno
+    return @estado.siguienteTurno
+  end
+
+  def turnoActual
+    return @estado.turnoActual
+  end
+
+  def posesion
+    return @estado.posesion
+  end
+
 
 end
 

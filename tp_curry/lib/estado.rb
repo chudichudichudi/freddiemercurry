@@ -21,6 +21,11 @@ class Estado
 	def siguienteTurno
 	end
 
+  def posesion
+  end
+
+  def turnoActual
+  end
 
 end
 
