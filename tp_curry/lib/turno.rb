@@ -54,7 +54,11 @@ class Turno
     end
     
     def simular
-      accionAtacante = TiroDe3.new
+      if (pasesSucesivos == 0)
+        accionAtacante = Pase.new(@atacante.alaPivote)
+      else 
+          accionAtacante = TiroDe3.new
+      end
       # accionDefensiva
       resultado=resolverAcciones(accionAtacante)
     end
@@ -62,4 +66,10 @@ class Turno
     def terminar
       @simulacion.siguienteTurnoOFinalizar
     end
+    
+    def pasarA(aQuien)
+      @pasesSucesivos += 1
+      @quienTieneLaPelota = aQuien
+    end
+    
 end
