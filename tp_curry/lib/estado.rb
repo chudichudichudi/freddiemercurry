@@ -13,11 +13,15 @@ class EstadoSimulacion
     raise "subclass responsability"
   end
   
-	def siguienteTurno
+	def jugarTurno
     raise "subclass responsability"
 	end
 
   def posesion
+    raise "subclass responsability"
+  end
+
+  def siguienteTurnoOFinalizar
     raise "subclass responsability"
   end
 
@@ -32,7 +36,7 @@ class EstadoEnCurso < EstadoSimulacion
   def initialize(simulacion, turnosAJugar)
     super(simulacion)
     @turnosAJugar = turnosAJugar
-    elPrimerTurno = Turno.new(@simulacion.equipoDesafiado,@simulacion.equipoDesafiante)
+    elPrimerTurno = Turno.new(@simulacion, @simulacion.equipoDesafiado,@simulacion.equipoDesafiante)
     simulacion.agregarTurno(elPrimerTurno)
   end
   
@@ -47,17 +51,19 @@ class EstadoEnCurso < EstadoSimulacion
       @simulacion.equipoDesafiado;
   end
 
-  def siguienteTurno
-    @simulacion.puntajeDesafiado += ultimoTurno().obtenerPuntajeDe(@equipoDesafiado)
-    @simulacion.puntajeDesafiante += ultimoTurno().obtenerPuntajeDe(@equipoDesafiante)
+  def siguienteTurnoOFinalizar()
     if (@simulacion.historialDeTurnos.size() < @turnosAJugar)
       equipoAtacante = ultimoTurno().quienTieneLaProximaPosesion()
       equipoDefensor = elOtroEquipo(equipoAtacante)
-      unNuevoTurno = Turno.new(equipoAtacante, equipoDefensor)
+      unNuevoTurno = Turno.new(@simulacion, equipoAtacante, equipoDefensor)
       @simulacion.agregarTurno(unNuevoTurno)
     else
-      @simulacion.finalizar
+      @simulacion.terminar
     end
+  end
+  
+  def jugarTurno
+    ultimoTurno().simular
   end
 
   def turnoActual
@@ -71,6 +77,12 @@ class EstadoEnCurso < EstadoSimulacion
   def posesion
     return ultimoTurno().posesion
   end
+  
+  def simular
+    @turnosAJugar.times do 
+      jugarTurno
+    end
+  end
 end
 
 class EstadoTerminado < EstadoSimulacion
@@ -79,12 +91,12 @@ class EstadoTerminado < EstadoSimulacion
   end
   
   def to_s()
-    return "Simulación Terminada curso entre: " + simulacion.equipoDesafiante.to_s() + " y " +
-      simulacion.equipoDesafiado.to_s() + ".  Puntaje: " + 
-      simulacion.puntajeDesafiante.to_s() + "-" + simulacion.puntajeDesafiado.to_s()
+    return "Simulación Terminada curso entre: " + @simulacion.equipoDesafiante.to_s() + " y " +
+      @simulacion.equipoDesafiado.to_s() + ".  Puntaje: " + 
+      @simulacion.puntajeDesafiante.to_s() + "-" + @simulacion.puntajeDesafiado.to_s()
   end
   
-  def siguienteTurno
+  def jugarTurno
     raise 'El partido ya está finalizado.'
   end
 
@@ -93,6 +105,14 @@ class EstadoTerminado < EstadoSimulacion
   end
 
   def turnoActual
+    raise 'El partido ya está finalizado.'
+  end
+
+  def siguienteTurnoOFinalizar
+    raise "El partido ya está finalizado."
+  end
+
+  def simular
     raise 'El partido ya está finalizado.'
   end
 

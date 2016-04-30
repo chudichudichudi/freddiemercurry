@@ -4,30 +4,36 @@
 # and open the template in the editor.
 
 ## Habría que ir organizando tests de verdad... (Andrés)
-require_relative "jugador.rb"
-require_relative "equipo.rb"
-require_relative "simulacion.rb"
-require_relative "turno.rb"
-require_relative "estado.rb"
+require "jugador.rb"
+require "equipo.rb"
+require "simulacion.rb"
+require "turno.rb"
+require "estado.rb"
+require "tecnico.rb"
 
-j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
-j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
+base = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+alero = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+alaPivote = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+escolta = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+pivote = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+tecnico = DirectorTecnico.new("nombre")
 
-j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
+e1 = Equipo.new("El mejor equipo", tecnico, base, alero, alaPivote, escolta, pivote)
 
-e1 = Equipo.new("equipo1", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
-e2 = Equipo.new("equipo2", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
-simulacion = Simulacion.new(e1, e2,40)
+
+base = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+alero = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+alaPivote = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+escolta = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+pivote = Jugador.new("nombre", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+tecnico = DirectorTecnico.new("nombre")
+
+e2 = Equipo.new("El peor equipo", tecnico, base, alero, alaPivote, escolta, pivote)
+simulacion = Simulacion.new(e1, e2, 40)
+puts simulacion
+puts "Turno: #{simulacion.turnoActual()}" 
+puts "Le toca a: #{simulacion.posesion()}"
+
+simulacion.simular
 
 puts simulacion
-
-puts "Turno: #{simulacion.turnoActual()}" 
-puts "Le toca a: #{simulacion.posesion()}"
-39.times do
-  simulacion.siguienteTurno()
-end
-puts "Turno: #{simulacion.turnoActual()}" 
-puts "Le toca a: #{simulacion.posesion()}"
-simulacion.siguienteTurno()
-simulacion.siguienteTurno()
-

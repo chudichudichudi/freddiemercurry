@@ -3,13 +3,22 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require "accion.rb"
+
 class Turno
 	attr_reader :atacante, :defensor, 
-	:puntosAtacante, :puntosDefensor
+	:puntosAtacante, :puntosDefensor, 
+  :quienTieneLaPelota, :pasesSucesivos
+  
 
-	def initialize(atacante, defensor)
-		@atacante = atacante
+	def initialize(simulacion, atacante, defensor)
+		@simulacion = simulacion
+    @atacante = atacante
+    #@estrategiaAtacante = atacante.dameEstrategiaOfensiva
 		@defensor = defensor
+    #@estrategiaDefensor = defensor.dameEstrategiaDefensiva
+    @quienTieneLaPelota = atacante.base
+    @pasesSucesivos = 0
 		@puntosDefensor = 0
 		@puntosAtacante = 0
   	end
@@ -34,4 +43,23 @@ class Turno
       return @defensor
     end
     
+    ### XXX sacar a una clase
+    def resolverAcciones(accionAtacante)
+      resultadoAtacante = accionAtacante.ejecutar(self)
+      resultadoAtacante.actualizaTurno(self)
+    end
+    
+    def sumarPuntosAtacante(puntos)
+      @simulacion.sumarPuntosAEquipo(puntos, @atacante)
+    end
+    
+    def simular
+      accionAtacante = TiroDe3.new
+      # accionDefensiva
+      resultado=resolverAcciones(accionAtacante)
+    end
+    
+    def terminar
+      @simulacion.siguienteTurnoOFinalizar
+    end
 end

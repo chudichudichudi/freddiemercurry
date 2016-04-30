@@ -23,6 +23,10 @@ class Equipo
     o.class == self.class && o.state == self.state
   end
 
+  def dameEstrategiaOfensiva
+    
+  end
+  
   protected
 
   def state

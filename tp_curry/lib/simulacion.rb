@@ -28,20 +28,37 @@ class Simulacion
   end
   
   def siguienteTurno
-    return @estado.siguienteTurno
+    return @estado.jugarTurno
   end
 
   def turnoActual
     return @estado.turnoActual
   end
 
+  def siguienteTurnoOFinalizar
+    return @estado.siguienteTurnoOFinalizar
+  end
+
   def posesion
     return @estado.posesion
   end
 
-  def finalizar
+  def sumarPuntosAEquipo(puntos, equipo)
+    if (equipo == @equipoDesafiante)
+      @puntajeDesafiante += puntos
+    else
+      @puntajeDesafiado += puntos
+    end
+  end
+  
+  def terminar
     @estado = EstadoTerminado.new(self);
   end
 
+  def simular
+    @estado.simular
+  end
+
+  
 end
 
