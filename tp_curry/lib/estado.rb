@@ -4,41 +4,37 @@
 # and open the template in the editor.
 
 
-class Estado
+class EstadoSimulacion
   attr_reader :equipoDesafiante, :equipoDesafiado,
       :puntajeDesafiante, :puntajeDesafiado
-  
-   
+
   def initialize
+    raise "subclass responsability"
   end
   
-  def to_s()
-    return "Simulación entre: " + equipoDesafiante.to_s() + " y " +
-      equipoDesafiado.to_s() + ".  Puntaje: " + @puntajeDesafiante.to_s() +
-      "-" + @puntajeDesafiado.to_s()
+  def to_s
+    raise "subclass responsability"
   end
   
 	def siguienteTurno
-    raise "no implementado"
+    raise "subclass responsability"
 	end
 
   def posesion
-    raise "no implementado"
+    raise "subclass responsability"
   end
 
   def turnoActual
-    raise "no implementado"
+    raise "subclass responsability"
   end
 
 end
 
 
-class EstadoEnCurso<Estado
+class EstadoEnCurso < EstadoSimulacion
 	attr_reader :equipoDesafiante, :equipoDesafiado,
       :puntajeDesafiante, :puntajeDesafiado, :numeroDeTurno,
       :equipoAtacante, :cantidadDeTurnos
-
-  
    
   def initialize(equipoDesafiante, equipoDesafiado, turnosAJugar)
     @turnosAJugar = turnosAJugar
@@ -53,7 +49,7 @@ class EstadoEnCurso<Estado
 
   end
   
-  def to_s()
+  def to_s
     return "Simulación entre: " + equipoDesafiante.to_s() + " y " +
       equipoDesafiado.to_s() + ".  Puntaje: " + @puntajeDesafiante.to_s() +
       "-" + @puntajeDesafiado.to_s()
@@ -87,7 +83,7 @@ class EstadoEnCurso<Estado
   end
 end
 
-class Terminado<Estado
+class Terminado < EstadoSimulacion
 	attr_reader :equipoDesafiante, :equipoDesafiado,
       :puntajeDesafiante, :puntajeDesafiado
   
@@ -108,9 +104,6 @@ class Terminado<Estado
   def siguienteTurno
     raise 'El partido ya está finalizado.'
   end
-  @equipoDesafiante
-  @equipoDesafiado
-  @puntajeDesafiante
-  @puntajeDesafiado
+
 end
 

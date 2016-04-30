@@ -21,13 +21,12 @@ simulacion = Simulacion.new(e1, e2,40)
 
 puts simulacion
 
-puts "Turno: " + simulacion.turnoActual().to_s()
-puts "Le toca a: " + simulacion.posesion().to_s()
+puts "Turno: #{simulacion.turnoActual()}" 
+puts "Le toca a: #{simulacion.posesion()}"
 simulacion.siguienteTurno()
-puts "Turno: " + simulacion.turnoActual().to_s()
-puts "Le toca a: " + simulacion.posesion().to_s()
+puts "Turno: #{simulacion.turnoActual()}" 
+puts "Le toca a: #{simulacion.posesion()}"
 simulacion.siguienteTurno()
-puts "Turno: " + simulacion.turnoActual().to_s()
-puts "Le toca a: " + simulacion.posesion().to_s()
-
+puts "Turno: #{simulacion.turnoActual()}" 
+puts "Le toca a: #{simulacion.posesion()}"
 
