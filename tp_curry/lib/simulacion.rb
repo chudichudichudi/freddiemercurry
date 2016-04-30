@@ -5,22 +5,26 @@
 
 class Simulacion
   attr_reader :equipoDesafiante, :equipoDesafiado,
-      :puntajeDesafiante, :puntajeDesafiado
-  
+      :puntajeDesafiante, :puntajeDesafiado, :historialDeTurnos
+  attr_writer :puntajeDesafiante, :puntajeDesafiado
+    
    
   def initialize(equipoDesafiante, equipoDesafiado,turnosAJugar)
     @equipoDesafiante = equipoDesafiante
     @equipoDesafiado = equipoDesafiado
     # Una simulación siempre empieza 0-0
     @puntajeDesafiante = @puntajeDesafiado = 0
+    @historialDeTurnos = []
     #TODO: Elegir un equipo atacante al azar
-    @estado = EstadoEnCurso.new(equipoDesafiante,equipoDesafiado,turnosAJugar)
+    @estado = EstadoEnCurso.new(self, turnosAJugar)
   end
   
-  def to_s()
-    return "Simulación entre: " + equipoDesafiante.to_s() + " y " +
-      equipoDesafiado.to_s() + ".  Puntaje: " + @puntajeDesafiante.to_s() +
-      "-" + @puntajeDesafiado.to_s()
+  def to_s
+    @estado.to_s
+  end
+  
+  def agregarTurno(turno)
+    @historialDeTurnos.push(turno)
   end
   
   def siguienteTurno
@@ -35,6 +39,9 @@ class Simulacion
     return @estado.posesion
   end
 
+  def finalizar
+    @estado = EstadoTerminado.new(self);
+  end
 
 end
 

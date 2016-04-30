@@ -5,11 +5,8 @@
 
 
 class EstadoSimulacion
-  attr_reader :equipoDesafiante, :equipoDesafiado,
-      :puntajeDesafiante, :puntajeDesafiado
-
-  def initialize
-    raise "subclass responsability"
+  def initialize(simulacion)
+    @simulacion = simulacion
   end
   
   def to_s
@@ -32,50 +29,43 @@ end
 
 
 class EstadoEnCurso < EstadoSimulacion
-	attr_reader :equipoDesafiante, :equipoDesafiado,
-      :puntajeDesafiante, :puntajeDesafiado, :numeroDeTurno,
-      :equipoAtacante, :cantidadDeTurnos
-   
-  def initialize(equipoDesafiante, equipoDesafiado, turnosAJugar)
+  def initialize(simulacion, turnosAJugar)
+    super(simulacion)
     @turnosAJugar = turnosAJugar
-    @equipoDesafiante = equipoDesafiante
-    @equipoDesafiado = equipoDesafiado
-    # Una simulación siempre empieza 0-0
-    @puntajeDesafiante = @puntajeDesafiado = 0
-    @historialDeTurnos = []
-
-    elPrimerTurno = Turno.new(equipoDesafiado,equipoDesafiante)
-    @historialDeTurnos.push(elPrimerTurno)
-
+    elPrimerTurno = Turno.new(@simulacion.equipoDesafiado,@simulacion.equipoDesafiante)
+    simulacion.agregarTurno(elPrimerTurno)
   end
   
   def to_s
-    return "Simulación entre: " + equipoDesafiante.to_s() + " y " +
-      equipoDesafiado.to_s() + ".  Puntaje: " + @puntajeDesafiante.to_s() +
-      "-" + @puntajeDesafiado.to_s()
+    return "Simulación en curso entre: " + @simulacion.equipoDesafiante.to_s() + " y " +
+      @simulacion.equipoDesafiado.to_s() + ".  Puntaje: " + 
+      @simulacion.puntajeDesafiante.to_s() + "-" + @simulacion.puntajeDesafiado.to_s()
   end
   
   def elOtroEquipo(equipo)
-    return (equipo == @equipoDesafiado)? @equipoDesafiante : @equipoDesafiado;
+    return (equipo == @simulacion.equipoDesafiado)? @simulacion.equipoDesafiante : 
+      @simulacion.equipoDesafiado;
   end
 
   def siguienteTurno
-    @puntajeDesafiado += ultimoTurno().obtenerPuntajeDe(@equipoDesafiado)
-    @puntajeDesafiante += ultimoTurno().obtenerPuntajeDe(@equipoDesafiante)
-    if (@historialDeTurnos.size() < @turnosAJugar)
+    @simulacion.puntajeDesafiado += ultimoTurno().obtenerPuntajeDe(@equipoDesafiado)
+    @simulacion.puntajeDesafiante += ultimoTurno().obtenerPuntajeDe(@equipoDesafiante)
+    if (@simulacion.historialDeTurnos.size() < @turnosAJugar)
       equipoAtacante = ultimoTurno().quienTieneLaProximaPosesion()
       equipoDefensor = elOtroEquipo(equipoAtacante)
       unNuevoTurno = Turno.new(equipoAtacante, equipoDefensor)
-      @historialDeTurnos.push(unNuevoTurno)
+      @simulacion.agregarTurno(unNuevoTurno)
+    else
+      @simulacion.finalizar
     end
   end
 
   def turnoActual
-    return @historialDeTurnos.size()
+    return @simulacion.historialDeTurnos.size()
   end
 
   def ultimoTurno
-    @historialDeTurnos[-1]
+    @simulacion.historialDeTurnos[-1]
   end
 
   def posesion
@@ -83,25 +73,26 @@ class EstadoEnCurso < EstadoSimulacion
   end
 end
 
-class Terminado < EstadoSimulacion
-	attr_reader :equipoDesafiante, :equipoDesafiado,
-      :puntajeDesafiante, :puntajeDesafiado
-  
-   
-  def initialize(equipoDesafiante, equipoDesafiado)
-    @equipoDesafiante = equipoDesafiante
-    @equipoDesafiado = equipoDesafiado
-    # Una simulación siempre empieza 0-0
-    @puntajeDesafiante = @puntajeDesafiado = 0
+class EstadoTerminado < EstadoSimulacion
+  def initialize(simulacion)
+    super(simulacion)
   end
   
   def to_s()
-    return "Simulación entre: " + equipoDesafiante.to_s() + " y " +
-      equipoDesafiado.to_s() + ".  Puntaje: " + @puntajeDesafiante.to_s() +
-      "-" + @puntajeDesafiado.to_s()
+    return "Simulación Terminada curso entre: " + simulacion.equipoDesafiante.to_s() + " y " +
+      simulacion.equipoDesafiado.to_s() + ".  Puntaje: " + 
+      simulacion.puntajeDesafiante.to_s() + "-" + simulacion.puntajeDesafiado.to_s()
   end
   
   def siguienteTurno
+    raise 'El partido ya está finalizado.'
+  end
+
+  def posesion
+    raise 'El partido ya está finalizado.'
+  end
+
+  def turnoActual
     raise 'El partido ya está finalizado.'
   end
 

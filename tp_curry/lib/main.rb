@@ -23,10 +23,11 @@ puts simulacion
 
 puts "Turno: #{simulacion.turnoActual()}" 
 puts "Le toca a: #{simulacion.posesion()}"
-simulacion.siguienteTurno()
+39.times do
+  simulacion.siguienteTurno()
+end
 puts "Turno: #{simulacion.turnoActual()}" 
 puts "Le toca a: #{simulacion.posesion()}"
 simulacion.siguienteTurno()
-puts "Turno: #{simulacion.turnoActual()}" 
-puts "Le toca a: #{simulacion.posesion()}"
+simulacion.siguienteTurno()
 

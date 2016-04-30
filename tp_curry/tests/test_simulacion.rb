@@ -30,6 +30,27 @@ class TestSimpleNumber < Test::Unit::TestCase
 
   end
 
+
+#j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
+#j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
+#
+#j1 = Jugador.new("nombre", 0, 0, 0, 0, 0, 0, 0, 0)
+#
+#e1 = Equipo.new("equipo1", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
+#e2 = Equipo.new("equipo2", "directorTecnico", "base", "alero", "alaPivote", "escolta", "pivote")
+#simulacion = Simulacion.new(e1, e2,40)
+#
+#puts simulacion
+#
+#puts "Turno: #{simulacion.turnoActual()}" 
+#puts "Le toca a: #{simulacion.posesion()}"
+#39.times do
+#  simulacion.siguienteTurno()
+#end
+#puts "Turno: #{simulacion.turnoActual()}" 
+#puts "Le toca a: #{simulacion.posesion()}"
+#simulacion.siguienteTurno()
+#simulacion.siguienteTurno()
   
 end
 

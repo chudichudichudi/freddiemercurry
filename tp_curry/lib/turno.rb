@@ -26,4 +26,12 @@ class Turno
   		return @atacante
   	end
 
+    def quienAtaca
+      return @atacante
+    end
+
+    def quienDefiende
+      return @defensor
+    end
+    
 end
