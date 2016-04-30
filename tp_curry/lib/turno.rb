@@ -8,7 +8,7 @@ require "accion.rb"
 class Turno
 	attr_reader :atacante, :defensor, 
 	:puntosAtacante, :puntosDefensor, 
-  :quienTieneLaPelota, :pasesSucesivos
+  :quienTieneLaPelota, :pasesSucesivos, :historialDeAccionesYResultados
   
 
 	def initialize(simulacion, atacante, defensor)
@@ -21,7 +21,8 @@ class Turno
     @pasesSucesivos = 0
 		@puntosDefensor = 0
 		@puntosAtacante = 0
-  	end
+  	@historialDeAccionesYResultados = []
+    end
 
   	def obtenerPuntajeDe(equipo)
   		return (equipo==@atacante)? @puntosAtacante : @puntosDefensor
@@ -45,7 +46,9 @@ class Turno
     
     ### XXX sacar a una clase
     def resolverAcciones(accionAtacante)
+      @historialDeAccionesYResultados.push(accionAtacante)
       resultadoAtacante = accionAtacante.ejecutar(self)
+      @historialDeAccionesYResultados.push(resultadoAtacante)
       resultadoAtacante.actualizaTurno(self)
     end
     
@@ -55,9 +58,9 @@ class Turno
     
     def simular
       if (pasesSucesivos == 0)
-        accionAtacante = Pase.new(@atacante.alaPivote)
+        accionAtacante = Pase.new(@quienTieneLaPelota, @atacante.alaPivote)
       else 
-          accionAtacante = TiroDe3.new
+          accionAtacante = TiroDe3.new(@quienTieneLaPelota)
       end
       # accionDefensiva
       resultado=resolverAcciones(accionAtacante)
@@ -72,4 +75,7 @@ class Turno
       @quienTieneLaPelota = aQuien
     end
     
+    def to_s
+      @historialDeAccionesYResultados.inject("") { | acum, eor | acum + eor.to_s + "\n" }
+    end
 end

@@ -68,11 +68,12 @@ class EstadoTerminado < EstadoSimulacion
   end
   
   def to_s()
-    return "Simulación Terminada curso entre: " + @simulacion.equipoDesafiante.to_s() + " y " +
+    start =  "Simulación Terminada curso entre: " + @simulacion.equipoDesafiante.to_s() + " y " +
       @simulacion.equipoDesafiado.to_s() + ".  Puntaje: " + 
-      @simulacion.puntajeDesafiante.to_s() + "-" + @simulacion.puntajeDesafiado.to_s()
+      @simulacion.puntajeDesafiante.to_s() + "-" + @simulacion.puntajeDesafiado.to_s() +
+      "\nLog:\n"
+      return @simulacion.historialDeTurnos.inject(start) { | acum, turno | acum + turno.to_s + "\n" }
   end
-  
   def simular
     raise 'El partido ya está finalizado.'
   end
