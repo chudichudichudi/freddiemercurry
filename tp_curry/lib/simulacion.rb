@@ -18,31 +18,19 @@ class Simulacion
     #TODO: Elegir un equipo atacante al azar
     @estado = EstadoEnCurso.new(self, turnosAJugar)
   end
+
+  def siguienteTurnoOFinalizar
+    return @estado.siguienteTurnoOFinalizar
+  end
   
   def to_s
-    @estado.to_s
+    return @estado.to_s
   end
   
   def agregarTurno(turno)
     @historialDeTurnos.push(turno)
   end
   
-  def siguienteTurno
-    return @estado.jugarTurno
-  end
-
-  def turnoActual
-    return @estado.turnoActual
-  end
-
-  def siguienteTurnoOFinalizar
-    return @estado.siguienteTurnoOFinalizar
-  end
-
-  def posesion
-    return @estado.posesion
-  end
-
   def sumarPuntosAEquipo(puntos, equipo)
     if (equipo == @equipoDesafiante)
       @puntajeDesafiante += puntos

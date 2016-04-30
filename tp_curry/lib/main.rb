@@ -31,9 +31,6 @@ tecnico = DirectorTecnico.new("nombre")
 e2 = Equipo.new("El peor equipo", tecnico, base, alero, alaPivote, escolta, pivote)
 simulacion = Simulacion.new(e1, e2, 40)
 puts simulacion
-puts "Turno: #{simulacion.turnoActual()}" 
-puts "Le toca a: #{simulacion.posesion()}"
-
 simulacion.simular
 
 puts simulacion

@@ -13,24 +13,14 @@ class EstadoSimulacion
     raise "subclass responsability"
   end
   
-	def jugarTurno
+	def simular
     raise "subclass responsability"
 	end
-
-  def posesion
-    raise "subclass responsability"
-  end
-
+  
   def siguienteTurnoOFinalizar
     raise "subclass responsability"
   end
-
-  def turnoActual
-    raise "subclass responsability"
-  end
-
 end
-
 
 class EstadoEnCurso < EstadoSimulacion
   def initialize(simulacion, turnosAJugar)
@@ -53,35 +43,22 @@ class EstadoEnCurso < EstadoSimulacion
 
   def siguienteTurnoOFinalizar()
     if (@simulacion.historialDeTurnos.size() < @turnosAJugar)
-      equipoAtacante = ultimoTurno().quienTieneLaProximaPosesion()
+      equipoAtacante = turnoActual().quienTieneLaProximaPosesion()
       equipoDefensor = elOtroEquipo(equipoAtacante)
       unNuevoTurno = Turno.new(@simulacion, equipoAtacante, equipoDefensor)
       @simulacion.agregarTurno(unNuevoTurno)
+      simular
     else
       @simulacion.terminar
     end
   end
   
-  def jugarTurno
-    ultimoTurno().simular
-  end
-
   def turnoActual
-    return @simulacion.historialDeTurnos.size()
-  end
-
-  def ultimoTurno
     @simulacion.historialDeTurnos[-1]
   end
 
-  def posesion
-    return ultimoTurno().posesion
-  end
-  
   def simular
-    @turnosAJugar.times do 
-      jugarTurno
-    end
+    turnoActual().simular
   end
 end
 
@@ -96,23 +73,11 @@ class EstadoTerminado < EstadoSimulacion
       @simulacion.puntajeDesafiante.to_s() + "-" + @simulacion.puntajeDesafiado.to_s()
   end
   
-  def jugarTurno
-    raise 'El partido ya está finalizado.'
-  end
-
-  def posesion
-    raise 'El partido ya está finalizado.'
-  end
-
-  def turnoActual
+  def simular
     raise 'El partido ya está finalizado.'
   end
 
   def siguienteTurnoOFinalizar
-    raise "El partido ya está finalizado."
-  end
-
-  def simular
     raise 'El partido ya está finalizado.'
   end
 
