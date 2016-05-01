@@ -28,7 +28,7 @@ class TiroDe3 < Accion
     return "#{@tirador} tira de 3"
   end
 
-  def ejecutar(turno)
+  def ejecutar(turno, resultadoDefensivo)
     equipo = turno.atacante
     jugador = @tirador
     # falta twitter
@@ -58,7 +58,7 @@ class Pase < Accion
     return "#{@deQuien} se intenta pasar #{@aQuien}"
   end
   
-  def ejecutar(turno)
+  def defensivaFallada(turno)
     jugador = @deQuien
     # falta twitter
     ue = 1 - jugador.perdidasPorJuego * 0.01
@@ -71,9 +71,55 @@ class Pase < Accion
       return ResultadoPaseAcertado.new(self)
     else
       return ResultadoPaseFallado.new(self)
-    end
+    end    
+  end
+  
+  def defensivaExitosa(turno)
+    return ResultadoNulo.new(self)
+  end
+  
+  def ejecutar(turno, resultadoDefensivo)
+    return resultadoDefensivo.resolverConAccionOfensiva(turno, self)
   end
 end
+
+class IntercepcionPase < Accion
+  attr_reader :pase, :quien
+  def initialize(pase, quien)
+    @pase = pase
+    @quien = quien
+  end
+  
+  def ejecutar(turno)
+    jugador = @quien
+    # falta twitter
+    ue = jugador.robosPorJuego * 0.2
+
+    puts "ue robo pase"
+    puts ue
+
+    # entre 0 y 1
+    if rand() <= ue
+      return ResultadoIntercepcionPaseExitosa.new(self)
+    else
+      return ResultadoIntercepcionPaseFallada.new(self)
+    end
+  end
+  
+end
+
+class AccionDefensivaNula < Accion
+  attr_reader :accionOfensiva
+  def initialize(accionOfensiva)
+    @accionOfensiva
+  end
+  
+  def ejecutar(turno)
+    return ResultadoNulo.new(self)
+  end
+  
+end
+
 
 class ResultadoAccion
   attr_reader :accion
@@ -84,6 +130,24 @@ class ResultadoAccion
   
   def actualizaTurno(turno)
     raise "Subclass responsability"
+  end
+end
+
+class ResultadoNulo < ResultadoAccion
+  def initialize(accion)
+    super(accion)
+  end
+
+  def to_s
+    return ""
+  end
+    
+  def actualizaTurno(turno)
+    # no hace nada
+  end
+
+  def resolverConAccionOfensiva(turno, accionOfensiva)
+    return accionOfensiva.defensivaFallada(turno)
   end
 end
 
@@ -122,7 +186,6 @@ class ResultadoPaseAcertado < ResultadoAccion
   end
 
   def actualizaTurno(turno)
-    puts "Pase acertado"
     turno.pasarA(accion.aQuien)
     turno.simular
   end
@@ -138,8 +201,45 @@ class ResultadoPaseFallado < ResultadoAccion
   end
 
   def actualizaTurno(turno)
-    puts "Pase fallado"
     turno.terminar
   end
 end
 
+
+class ResultadoIntercepcionPaseExitosa < ResultadoAccion
+  def initialize(accion)
+    super(accion)
+  end
+
+  def to_s
+    return "#{@accion.quien} robo la pelota"
+  end
+
+  def actualizaTurno(turno)
+    turno.cambioPosesion(@accion.quien)
+    turno.simular
+  end
+  
+  def resolverConAccionOfensiva(turno, accionOfensiva)
+    return accionOfensiva.defensivaExitosa(turno)
+  end
+end
+
+
+class ResultadoIntercepcionPaseFallada < ResultadoAccion
+  def initialize(accion)
+    super(accion)
+  end
+
+  def to_s
+    return "#{@accion.quien} no pudo interceptar el pase"
+  end
+
+  def actualizaTurno(turno)
+    # no hace nada
+  end
+  
+  def resolverConAccionOfensiva(turno, accionOfensiva)
+    return accionOfensiva.defensivaFallada(turno)
+  end
+end

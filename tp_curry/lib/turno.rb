@@ -37,11 +37,28 @@ class Turno
   	end
     
     ### XXX sacar a una clase
-    def resolverAcciones(accionAtacante)
+    def resolverAcciones(accionAtacante, accionDefensiva)
       @historialDeAccionesYResultados.push(accionAtacante)
-      resultadoAtacante = accionAtacante.ejecutar(self)
+      resultadoDefensivo = accionDefensiva.ejecutar(self)
+      @historialDeAccionesYResultados.push(resultadoDefensivo)
+      resultadoAtacante = accionAtacante.ejecutar(self, resultadoDefensivo)
       @historialDeAccionesYResultados.push(resultadoAtacante)
+      # el orden es lo mismo porque siempre uno de los dos
+      # no hace nada
       resultadoAtacante.actualizaTurno(self)
+      resultadoDefensivo.actualizaTurno(self)
+    end
+    
+    def cambioPosesion(quienLaTieneAhora)
+      @quienTieneLaPelota = quienLaTieneAhora
+      @atacante, @defensor = @defensor, @atacante
+      @pasesSucesivos = 0
+      @estrategiaAtacante = atacante.tecnico.dameEstrategiaOfensiva
+      ## estrategia defensiva
+    end
+    
+    def reboteo
+      
     end
     
     def sumarPuntosAtacante(puntos)
@@ -50,7 +67,11 @@ class Turno
     
     def simular
       # accionDefensiva
-      resultado=resolverAcciones(@estrategiaAtacante.obtenerAccion(self))
+      accionOfensiva = @estrategiaAtacante.obtenerAccion(self)
+      accionDefensiva = (accionOfensiva.class.name == "Pase")? 
+        IntercepcionPase.new(accionOfensiva, @defensor.base) : 
+        AccionDefensivaNula.new(accionOfensiva)
+      resolverAcciones(accionOfensiva, accionDefensiva)
     end
     
     def terminar

@@ -23,11 +23,12 @@ class KPasesYTiro < Estrategia
 	end
 
 	def obtenerAccion(turno)
+    # arreglar, pase aleatorio (no a mi mismo)
 		if (turno.pasesSucesivos < @cantidadDePasesParaUnTiro)
 		    return Pase.new(turno.quienTieneLaPelota, turno.atacante.alaPivote)
-        else 
-            return TiroDe3.new(turno.quienTieneLaPelota)
-        end
+    else 
+        return TiroDe3.new(turno.quienTieneLaPelota)
+    end
 	end
 end
 
