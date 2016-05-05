@@ -8,7 +8,8 @@ require_relative "accion.rb"
 class Turno
 	attr_reader :atacante, :defensor, 
 	:puntosAtacante, :puntosDefensor, 
-  :quienTieneLaPelota, :pasesSucesivos, :historialDeAccionesYResultados
+  :quienTieneLaPelota, :pasesSucesivos, 
+  :nroPosesion, :historialDeAccionesYResultados
   
 
 	def initialize(simulacion, atacante, defensor)
@@ -19,6 +20,7 @@ class Turno
     @estrategiaDefensor = defensor.tecnico.dameEstrategiaDefensiva(self)
     @quienTieneLaPelota = atacante.base
     @pasesSucesivos = 0
+    @nroPosesion = 0
 		@puntosDefensor = 0
 		@puntosAtacante = 0
   	@historialDeAccionesYResultados = []
@@ -49,13 +51,14 @@ class Turno
       resultadoDefensivo.actualizaTurno(self)
     end
     
-    def cambioPosesion(quienLaTieneAhora)
+    def cambioPosesion(quienLaTieneAhora, queEquipoLaTieneAhora)
+      @atacante = queEquipoLaTieneAhora
+      @defensor = @simulacion.elOtroEquipo(@atacante)
       @quienTieneLaPelota = quienLaTieneAhora
-      @atacante, @defensor = @defensor, @atacante
+      @nroPosesion += 1
       @pasesSucesivos = 0
       @estrategiaAtacante = atacante.tecnico.dameEstrategiaOfensiva(self)
       @estrategiaDefensor = defensor.tecnico.dameEstrategiaDefensiva(self)
-      ## estrategia defensiva
     end
     
     def reboteo

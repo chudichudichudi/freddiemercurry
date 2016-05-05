@@ -19,6 +19,10 @@ class Simulacion
     @estado = EstadoEnCurso.new(self, turnosAJugar, turnosTiempoExtra)
   end
 
+  def elOtroEquipo(equipo)
+    return (equipo == equipoDesafiado)? equipoDesafiante : equipoDesafiado;
+  end
+  
   def siguienteTurnoOFinalizar
     return @estado.siguienteTurnoOFinalizar
   end

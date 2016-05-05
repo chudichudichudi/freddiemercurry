@@ -125,7 +125,7 @@ class ResultadoIntercepcionPaseExitosa < ResultadoAccionDefensiva
   end
 
   def actualizaTurno(turno)
-    turno.cambioPosesion(@accion.quien)
+    turno.cambioPosesion(@accion.quien, turno.defensor)
     turno.simular
   end
   

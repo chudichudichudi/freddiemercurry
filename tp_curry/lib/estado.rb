@@ -38,8 +38,7 @@ class EstadoEnCurso < EstadoSimulacion
   end
   
   def elOtroEquipo(equipo)
-    return (equipo == @simulacion.equipoDesafiado)? @simulacion.equipoDesafiante : 
-      @simulacion.equipoDesafiado;
+    return @simulacion.elOtroEquipo(equipo)
   end
 
   def siguienteTurnoOFinalizar()
@@ -75,7 +74,7 @@ class EstadoTerminado < EstadoSimulacion
   end
   
   def to_s()
-    start =  "Simulación Terminada curso entre: " + @simulacion.equipoDesafiante.to_s() + " y " +
+    start =  "Simulación Terminada entre: " + @simulacion.equipoDesafiante.to_s() + " y " +
       @simulacion.equipoDesafiado.to_s() + ".  Puntaje: " + 
       @simulacion.puntajeDesafiante.to_s() + "-" + @simulacion.puntajeDesafiado.to_s() +
       "\nLog:\n"
