@@ -14,9 +14,9 @@ class Turno
 	def initialize(simulacion, atacante, defensor)
 		@simulacion = simulacion
     @atacante = atacante
-    @estrategiaAtacante = atacante.tecnico.dameEstrategiaOfensiva
+    @estrategiaAtacante = atacante.tecnico.dameEstrategiaOfensiva(self)
 		@defensor = defensor
-    #@estrategiaDefensor = defensor.tecnico.dameEstrategiaDefensiva
+    @estrategiaDefensor = defensor.tecnico.dameEstrategiaDefensiva(self)
     @quienTieneLaPelota = atacante.base
     @pasesSucesivos = 0
 		@puntosDefensor = 0
@@ -53,7 +53,8 @@ class Turno
       @quienTieneLaPelota = quienLaTieneAhora
       @atacante, @defensor = @defensor, @atacante
       @pasesSucesivos = 0
-      @estrategiaAtacante = atacante.tecnico.dameEstrategiaOfensiva
+      @estrategiaAtacante = atacante.tecnico.dameEstrategiaOfensiva(self)
+      @estrategiaDefensor = defensor.tecnico.dameEstrategiaDefensiva(self)
       ## estrategia defensiva
     end
     
@@ -68,9 +69,7 @@ class Turno
     def simular
       # accionDefensiva
       accionOfensiva = @estrategiaAtacante.obtenerAccion(self)
-      accionDefensiva = accionOfensiva.esPase()? 
-        IntercepcionPase.new(accionOfensiva, @defensor.base) : 
-        AccionDefensivaNula.new(accionOfensiva)
+      accionDefensiva = @estrategiaDefensor.obtenerAccion(self, accionOfensiva)
       resolverAcciones(accionOfensiva, accionDefensiva)
     end
     

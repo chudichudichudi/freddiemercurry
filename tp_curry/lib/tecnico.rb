@@ -1,14 +1,16 @@
 # encoding: UTF-8
 
 class DirectorTecnico
-    def initialize(nombre, libroDeEstrategias)
+    def initialize(nombre, libroDeEstrategiasOfensivas, libroDeEstrategiasDefensivas)
         @nombre = nombre
-
         #convertirlo a acumulada las probabilidades
         acc = 0
-        libroDeEstrategias.each { |e,w| libroDeEstrategias[e] = acc+=w }
+        libroDeEstrategiasOfensivas.each { |e,w| libroDeEstrategiasOfensivas[e] = acc+=w }
+        acc = 0
+        libroDeEstrategiasDefensivas.each { |e,w| libroDeEstrategiasDefensivas[e] = acc+=w }
 
-        @libroDeEstrategias = libroDeEstrategias
+        @libroDeEstrategiasOfensivas = libroDeEstrategiasOfensivas
+        @libroDeEstrategiasDefensivas = libroDeEstrategiasDefensivas
     end
 
     def to_s
@@ -19,18 +21,16 @@ class DirectorTecnico
       o.class == self.class && o.state == self.state
     end
 
-    def dameEstrategiaOfensiva
+    def dameEstrategiaOfensiva(turno)
         r = rand()
-        selected = @libroDeEstrategias.select{ |e,w| w>r }
+        selected = @libroDeEstrategiasOfensivas.select{ |e,w| w>r }
         return selected.to_a()[0][0]
     end
 
     def dameEstrategiaDefensiva(turno)
-        
-    end
-
-    def dameEstrategiaContraOfensiva(turno)
-        
+        r = rand()
+        selected = @libroDeEstrategiasDefensivas.select{ |e,w| w>r }
+        return selected.to_a()[0][0]
     end
 
     protected

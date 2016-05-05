@@ -1,25 +1,24 @@
 require_relative "accion.rb"
 
 class Estrategia	
+end
+
+class EstrategiaOfensiva < Estrategia
 	def obtenerAccion(turno)
-		raise "subclass responsability"
-	end
-
-	def obtenerDefensiva(turno)
-		raise "subclass responsability"
-	end
-
-	def actualizarEstrategia(turno)
 		raise "subclass responsability"
 	end
 end
 
-class KPasesYTiro3 < Estrategia
+
+class EstrategiaDefensiva < Estrategia
+	def obtenerAccion(turno, accionOfensiva)
+		raise "subclass responsability"
+	end
+end
+
+class KPasesYTiro3 < EstrategiaOfensiva
 	def initialize(k)
 		@cantidadDePasesParaUnTiro = k
-	end
-
-	def actualizarEstrategia(turno)
 	end
 
 	def obtenerAccion(turno)
@@ -35,12 +34,9 @@ class KPasesYTiro3 < Estrategia
 	end
 end
 
-class KPasesYTiro2 < Estrategia
+class KPasesYTiro2 < EstrategiaOfensiva
 	def initialize(k)
 		@cantidadDePasesParaUnTiro = k
-	end
-
-	def actualizarEstrategia(turno)
 	end
 
 	def obtenerAccion(turno)
@@ -56,6 +52,15 @@ class KPasesYTiro2 < Estrategia
 	end
 end
 
-class EstrategiaDefensiva < Estrategia
-	
+class HombreAHombre < EstrategiaDefensiva
+	def obtenerAccion(turno, accionOfensiva)
+		if (accionOfensiva.esPase)
+      nroContrario = turno.atacante.numeroDeJugador(accionOfensiva.deQuien)
+      miJugador = turno.defensor.jugadorNumero(nroContrario)
+      return IntercepcionPase.new(accionOfensiva, miJugador)
+    else 
+        return AccionDefensivaNula.new(accionOfensiva)
+    end
+	end
+  
 end
