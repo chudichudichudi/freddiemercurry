@@ -59,7 +59,10 @@ class HombreAHombre < EstrategiaDefensiva
       miJugador = turno.defensor.jugadorNumero(nroContrario)
       return IntercepcionPase.new(accionOfensiva, miJugador)
     else 
-        return AccionDefensivaNula.new(accionOfensiva)
+      ## TODO que pasa con contrataque?
+      nroContrario = turno.atacante.numeroDeJugador(accionOfensiva.tirador)
+      miJugador = turno.defensor.jugadorNumero(nroContrario)
+      return BloqueoTiro.new(accionOfensiva, miJugador)
     end
 	end
   

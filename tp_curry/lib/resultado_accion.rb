@@ -152,3 +152,41 @@ class ResultadoIntercepcionPaseFallada < ResultadoAccionDefensiva
     return accionOfensiva.defensivaFallada(turno)
   end
 end
+
+class ResultadoBloqueoTiroExitoso < ResultadoAccionDefensiva
+  def initialize(accion)
+    super(accion)
+  end
+
+  def to_s
+    return "#{@accion.quien} bloqueo y robo la pelota"
+  end
+
+  def actualizaTurno(turno)
+    turno.cambioPosesion(@accion.quien, turno.defensor)
+    turno.simular
+  end
+  
+  def resolverConAccionOfensiva(turno, accionOfensiva)
+    return accionOfensiva.defensivaExitosa(turno)
+  end
+end
+
+
+class ResultadoBloqueoTiroFallado < ResultadoAccionDefensiva
+  def initialize(accion)
+    super(accion)
+  end
+
+  def to_s
+    return "#{@accion.quien} no pudo bloquear el tiro"
+  end
+
+  def actualizaTurno(turno)
+    # no hace nada
+  end
+  
+  def resolverConAccionOfensiva(turno, accionOfensiva)
+    return accionOfensiva.defensivaFallada(turno)
+  end
+end

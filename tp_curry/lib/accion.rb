@@ -61,7 +61,7 @@ class TiroDe3 < AccionOfensiva
     return "#{@tirador} tira de 3"
   end
 
-  def ejecutar(turno, resultadoDefensivo)
+  def defensivaFallada(turno)
     equipo = turno.atacante
     jugador = @tirador
     # falta twitter
@@ -75,6 +75,14 @@ class TiroDe3 < AccionOfensiva
     else
       return ResultadoTiroFallado.new(self)
     end
+  end
+
+  def defensivaExitosa(turno)
+    return ResultadoNulo.new(self)
+  end
+  
+  def ejecutar(turno, resultadoDefensivo)
+    return resultadoDefensivo.resolverConAccionOfensiva(turno, self)
   end
 end
 
@@ -101,7 +109,7 @@ class TiroDe2 < AccionOfensiva
     return "#{@tirador} tira de 2"
   end
 
-  def ejecutar(turno, resultadoDefensivo)
+  def defensivaFallada(turno)
     equipo = turno.atacante
     jugador = @tirador
     # falta twitter
@@ -115,9 +123,17 @@ class TiroDe2 < AccionOfensiva
       return ResultadoTiroFallado.new(self)
     end
   end
+  
+  def defensivaExitosa(turno)
+    return ResultadoNulo.new(self)
+  end
+  
+  def ejecutar(turno, resultadoDefensivo)
+    return resultadoDefensivo.resolverConAccionOfensiva(turno, self)
+  end
 end
 
-class Pase < Accion
+class Pase < AccionOfensiva
   attr_reader :deQuien, :aQuien
   
   def initialize(deQuien, aQuien)
@@ -159,6 +175,18 @@ class Pase < Accion
   end
 end
 
+class AccionDefensivaNula < AccionDefensiva
+  attr_reader :accionOfensiva
+  def initialize(accionOfensiva)
+    @accionOfensiva = accionOfensiva
+  end
+  
+  def ejecutar(turno)
+    return ResultadoNulo.new(self)
+  end
+  
+end
+
 class IntercepcionPase < AccionDefensiva
   attr_reader :pase, :quien
   def initialize(pase, quien)
@@ -181,14 +209,22 @@ class IntercepcionPase < AccionDefensiva
   
 end
 
-class AccionDefensivaNula < AccionDefensiva
-  attr_reader :accionOfensiva
-  def initialize(accionOfensiva)
-    @accionOfensiva = accionOfensiva
+class BloqueoTiro < AccionDefensiva
+  attr_reader :tiro, :quien
+  def initialize(tiro, quien)
+    @tiro = tiro
+    @quien = quien
   end
   
   def ejecutar(turno)
-    return ResultadoNulo.new(self)
-  end
-  
+    jugador = @quien
+    # falta twitter
+    ue = jugador.bloqueosPorJuego * 0.2
+    # entre 0 y 1
+    if rand() <= ue
+      return ResultadoBloqueoTiroExitoso.new(self)
+    else
+      return ResultadoBloqueoTiroFallado.new(self)
+    end
+  end  
 end

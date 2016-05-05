@@ -41,8 +41,8 @@ e2 = Equipo.new("El peor equipo", tecnico, base, alero, alaPivote, escolta, pivo
 simulacion = Simulacion.new(e1, e2, 40, 6)
 puts simulacion
 
-# Testeo de simulacion con al menos dos overtimes
-while(simulacion.historialDeTurnos.size <= 46)
+# Testeo de simulacion con al menos un overtime
+while(simulacion.historialDeTurnos.size <= 40)
   simulacion = Simulacion.new(e1, e2, 40, 6)
   simulacion.simular
 end
