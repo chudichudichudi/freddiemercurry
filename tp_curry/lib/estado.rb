@@ -23,9 +23,10 @@ class EstadoSimulacion
 end
 
 class EstadoEnCurso < EstadoSimulacion
-  def initialize(simulacion, turnosAJugar)
+  def initialize(simulacion, turnosAJugar, turnosTiempoExtra)
     super(simulacion)
     @turnosAJugar = turnosAJugar
+    @turnosTiempoExtra = turnosTiempoExtra
     elPrimerTurno = Turno.new(@simulacion, @simulacion.equipoDesafiado,@simulacion.equipoDesafiante)
     simulacion.agregarTurno(elPrimerTurno)
   end
@@ -42,6 +43,12 @@ class EstadoEnCurso < EstadoSimulacion
   end
 
   def siguienteTurnoOFinalizar()
+    # primero verifico si ya termino pero hay empate
+    if (@simulacion.historialDeTurnos.size() == @turnosAJugar &&
+          @simulacion.puntajeDesafiado == @simulacion.puntajeDesafiante)
+        @turnosAJugar += @turnosTiempoExtra
+    end
+    
     if (@simulacion.historialDeTurnos.size() < @turnosAJugar)
       equipoAtacante = turnoActual().quienTieneLaProximaPosesion()
       equipoDefensor = elOtroEquipo(equipoAtacante)

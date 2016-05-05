@@ -36,8 +36,16 @@ tecnico = DirectorTecnico.new("tecnico2", {
 	}, { HombreAHombre.new() => 1.0 })
 
 e2 = Equipo.new("El peor equipo", tecnico, base, alero, alaPivote, escolta, pivote, base)
-simulacion = Simulacion.new(e1, e2, 40)
+
+
+simulacion = Simulacion.new(e1, e2, 40, 6)
 puts simulacion
-simulacion.simular
+
+# Testeo de simulacion con al menos dos overtimes
+while(simulacion.historialDeTurnos.size <= 46)
+  simulacion = Simulacion.new(e1, e2, 40, 6)
+  simulacion.simular
+end
 
 puts simulacion
+puts "Turnos: " + simulacion.historialDeTurnos.length.to_s

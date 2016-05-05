@@ -9,14 +9,14 @@ class Simulacion
   attr_writer :puntajeDesafiante, :puntajeDesafiado
     
    
-  def initialize(equipoDesafiante, equipoDesafiado,turnosAJugar)
+  def initialize(equipoDesafiante, equipoDesafiado,turnosAJugar, turnosTiempoExtra)
     @equipoDesafiante = equipoDesafiante
     @equipoDesafiado = equipoDesafiado
     # Una simulación siempre empieza 0-0
     @puntajeDesafiante = @puntajeDesafiado = 0
     @historialDeTurnos = []
     #TODO: Elegir un equipo atacante al azar
-    @estado = EstadoEnCurso.new(self, turnosAJugar)
+    @estado = EstadoEnCurso.new(self, turnosAJugar, turnosTiempoExtra)
   end
 
   def siguienteTurnoOFinalizar
