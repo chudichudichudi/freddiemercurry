@@ -228,3 +228,28 @@ class BloqueoTiro < AccionDefensiva
     end
   end  
 end
+
+## no es ni defensiva ni ofensiva
+class Reboteo < Accion
+  attr_reader :quien, :queEquipo
+  def initialize(quien, queEquipo)
+    @quien = quien
+    @queEquipo = queEquipo
+  end
+  
+  def to_s
+    return "#{@quien} de #{@queEquipo} salta"
+  end
+
+  def ejecutar(turno)
+    jugador = @quien
+    # falta twitter
+    ue = jugador.rebotesPorPartido * 0.05
+    # entre 0 y 1
+    if rand() <= ue
+      return ResultadoReboteoExitoso.new(self)
+    else
+      return ResultadoReboteoFallado.new(self)
+    end
+  end
+end

@@ -62,7 +62,27 @@ class Turno
     end
     
     def reboteo
+      posiciones = [5, 4, 3, 2, 1]
+      equipos = [ @defensor, @atacante ]
+      ultimoRebote = nil
       
+      posiciones.each { |pos|  
+        equipos.each { |equipo|  
+          jugador = equipo.jugadorNumero(pos)
+          rebote = Reboteo.new(jugador, equipo)
+          ultimoRebote = rebote
+          resultado = rebote.ejecutar(self)
+          @historialDeAccionesYResultados.push(rebote)
+          @historialDeAccionesYResultados.push(resultado)
+          resultado.actualizaTurno(self)
+          if (resultado.exitoso)
+            self.simular
+            return ## muy importante!!
+          end
+        }
+      }
+      ## si llego acá nadie agarro el rebote, le paso el ultimo rebote
+      afuera(ultimoRebote)
     end
     
     def sumarPuntosAtacante(puntos)
@@ -74,6 +94,12 @@ class Turno
       accionOfensiva = @estrategiaAtacante.obtenerAccion(self)
       accionDefensiva = @estrategiaDefensor.obtenerAccion(self, accionOfensiva)
       resolverAcciones(accionOfensiva, accionDefensiva)
+    end
+    
+    def afuera(ultimaAccion)
+      ra = ResultadoAfuera.new(ultimaAccion)
+      @historialDeAccionesYResultados.push(ra)
+      ra.actualizaTurno(self)
     end
     
     def terminar
