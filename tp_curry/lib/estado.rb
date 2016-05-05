@@ -27,7 +27,11 @@ class EstadoEnCurso < EstadoSimulacion
     super(simulacion)
     @turnosAJugar = turnosAJugar
     @turnosTiempoExtra = turnosTiempoExtra
-    elPrimerTurno = Turno.new(@simulacion, @simulacion.equipoDesafiado,@simulacion.equipoDesafiante)
+    equipos = [@simulacion.equipoDesafiante, @simulacion.equipoDesafiado]
+    ## el que saca es uno random
+    equipoQueSaca = equipos[rand(0..1)]
+    equipoQueNoSaca = elOtroEquipo(equipoQueSaca)
+    elPrimerTurno = Turno.new(@simulacion, equipoQueSaca, equipoQueNoSaca)
     simulacion.agregarTurno(elPrimerTurno)
   end
   
