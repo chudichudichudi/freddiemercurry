@@ -10,7 +10,23 @@ class ResultadoAccion
   end
 end
 
-class ResultadoNulo < ResultadoAccion
+class ResultadoAccionOfensiva < ResultadoAccion
+  def initialize(accion)
+    super(accion)
+  end
+end
+
+class ResultadoAccionDefensiva < ResultadoAccion
+  def initialize(accion)
+    super(accion)
+  end
+
+  def resolverConAccionOfensiva(turno, accionOfensiva)
+    raise "Subclass responsability"
+  end
+end
+
+class ResultadoNulo < ResultadoAccionDefensiva
   def initialize(accion)
     super(accion)
   end
@@ -27,8 +43,9 @@ class ResultadoNulo < ResultadoAccion
     return accionOfensiva.defensivaFallada(turno)
   end
 end
+
 ## TODO juntar estos dos y agregar parametro?
-class ResultadoTiroDe3Acertado < ResultadoAccion
+class ResultadoTiroDe3Acertado < ResultadoAccionOfensiva
   def initialize(accion)
     super(accion)
   end
@@ -43,7 +60,7 @@ class ResultadoTiroDe3Acertado < ResultadoAccion
   end
 end
 
-class ResultadoTiroDe2Acertado < ResultadoAccion
+class ResultadoTiroDe2Acertado < ResultadoAccionOfensiva
   def initialize(accion)
     super(accion)
   end
@@ -58,7 +75,7 @@ class ResultadoTiroDe2Acertado < ResultadoAccion
   end
 end
 
-class ResultadoTiroFallado < ResultadoAccion
+class ResultadoTiroFallado < ResultadoAccionOfensiva
   def actualizaTurno(turno)
     turno.terminar
   end
@@ -83,7 +100,7 @@ class ResultadoPaseAcertado < ResultadoAccion
   end
 end
 
-class ResultadoPaseFallado < ResultadoAccion
+class ResultadoPaseFallado < ResultadoAccionOfensiva
   def initialize(accion)
     super(accion)
   end
@@ -98,7 +115,7 @@ class ResultadoPaseFallado < ResultadoAccion
 end
 
 
-class ResultadoIntercepcionPaseExitosa < ResultadoAccion
+class ResultadoIntercepcionPaseExitosa < ResultadoAccionDefensiva
   def initialize(accion)
     super(accion)
   end
@@ -118,7 +135,7 @@ class ResultadoIntercepcionPaseExitosa < ResultadoAccion
 end
 
 
-class ResultadoIntercepcionPaseFallada < ResultadoAccion
+class ResultadoIntercepcionPaseFallada < ResultadoAccionDefensiva
   def initialize(accion)
     super(accion)
   end
