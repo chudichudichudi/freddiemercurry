@@ -68,6 +68,7 @@ class Turno
     def simular
       # accionDefensiva
       accionOfensiva = @estrategiaAtacante.obtenerAccion(self)
+      ## XXX no usar instanceof!!
       accionDefensiva = (accionOfensiva.class.name == "Pase")? 
         IntercepcionPase.new(accionOfensiva, @defensor.base) : 
         AccionDefensivaNula.new(accionOfensiva)
@@ -84,6 +85,9 @@ class Turno
     end
     
     def to_s
-      @historialDeAccionesYResultados.inject("") { | acum, eor | acum + eor.to_s + "\n" }
+      @historialDeAccionesYResultados.inject("") { | acum, eor |
+        res = eor.to_s
+        acum + (res == ""? "" : res + "\n")        
+      }
     end
 end

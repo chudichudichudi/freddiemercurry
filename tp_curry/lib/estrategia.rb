@@ -14,7 +14,7 @@ class Estrategia
 	end
 end
 
-class KPasesYTiro < Estrategia
+class KPasesYTiro3 < Estrategia
 	def initialize(k)
 		@cantidadDePasesParaUnTiro = k
 	end
@@ -23,11 +23,35 @@ class KPasesYTiro < Estrategia
 	end
 
 	def obtenerAccion(turno)
-    # arreglar, pase aleatorio (no a mi mismo)
 		if (turno.pasesSucesivos < @cantidadDePasesParaUnTiro)
-		    return Pase.new(turno.quienTieneLaPelota, turno.atacante.alaPivote)
+        aQuien = turno.quienTieneLaPelota
+        while(aQuien == turno.quienTieneLaPelota)
+          aQuien = turno.atacante.jugadorNumero(rand(1..5)) 
+        end
+		    return Pase.new(turno.quienTieneLaPelota, aQuien)
     else 
         return TiroDe3.new(turno.quienTieneLaPelota)
+    end
+	end
+end
+
+class KPasesYTiro2 < Estrategia
+	def initialize(k)
+		@cantidadDePasesParaUnTiro = k
+	end
+
+	def actualizarEstrategia(turno)
+	end
+
+	def obtenerAccion(turno)
+		if (turno.pasesSucesivos < @cantidadDePasesParaUnTiro)
+        aQuien = turno.quienTieneLaPelota
+        while(aQuien == turno.quienTieneLaPelota)
+          aQuien = turno.atacante.jugadorNumero(rand(1..5)) 
+        end
+		    return Pase.new(turno.quienTieneLaPelota, aQuien)
+    else 
+        return TiroDe2.new(turno.quienTieneLaPelota)
     end
 	end
 end

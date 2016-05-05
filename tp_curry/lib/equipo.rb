@@ -4,8 +4,8 @@
 # and open the template in the editor.
 
 class Equipo
-  attr_reader :nombre, :tecnico, :base, :alero, :alaPivote, :escolta, :pivote
-  def initialize(nombre, tecnico, base, alero, alaPivote, escolta, pivote)
+  attr_reader :nombre, :tecnico, :base, :alero, :alaPivote, :escolta, :pivote, :mvp
+  def initialize(nombre, tecnico, base, alero, alaPivote, escolta, pivote, mvp)
     @nombre = nombre
     @tecnico = tecnico
     @base = base
@@ -13,6 +13,16 @@ class Equipo
     @alaPivote = alaPivote
     @escolta = escolta
     @pivote  = pivote
+    @jugadores = [@base, @escolta, @alero, @alaPivote, @pivote]
+    @mvp = mvp
+  end
+  
+  def jugadorNumero(n)
+    return @jugadores[n-1]
+  end
+  
+  def numeroDeJugador(j)
+    return @jugadores.index(j) + 1
   end
   
   def to_s

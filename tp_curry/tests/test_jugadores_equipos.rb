@@ -25,8 +25,9 @@ class TestSimpleNumber < Test::Unit::TestCase
   	escolta = Jugador.new("nombre", 1, 2, 3, 4, 5, 6, 7, 8)
   	pivote = Jugador.new("nombre", 1, 2, 3, 4, 5, 6, 7, 8)
   	tecnico = DirectorTecnico.new("nombre")
-
-  	equipo = Equipo.new("El mejor equipo", tecnico, base, alero, alaPivote, escolta, pivote)
+    mvp = base
+    
+  	equipo = Equipo.new("El mejor equipo", tecnico, base, alero, alaPivote, escolta, pivote, mvp)
 
     assert_equal(equipo.tecnico, tecnico)
     assert_equal(equipo.base, base)
@@ -35,6 +36,7 @@ class TestSimpleNumber < Test::Unit::TestCase
     assert_equal(equipo.escolta, escolta)
     assert_equal(equipo.pivote, pivote)
     assert_equal(equipo.nombre, "El mejor equipo")
+    assert_equal(equipo.mvp, base)
   end
 
   

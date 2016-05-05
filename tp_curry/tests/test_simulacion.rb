@@ -13,7 +13,7 @@ class TestSimpleNumber < Test::Unit::TestCase
   	pivote = Jugador.new("nombre", 1, 2, 3, 4, 5, 6, 7, 8)
   	tecnico = DirectorTecnico.new("nombre")
 
-  	equipo = Equipo.new("El mejor equipo", tecnico, base, alero, alaPivote, escolta, pivote)
+  	equipo = Equipo.new("El mejor equipo", tecnico, base, alero, alaPivote, escolta, pivote, pivote)
 
 
     base2 = Jugador.new("nombre", 1, 2, 3, 4, 5, 6, 7, 8)
@@ -23,7 +23,7 @@ class TestSimpleNumber < Test::Unit::TestCase
     pivote2 = Jugador.new("nombre", 1, 2, 3, 4, 5, 6, 7, 8)
     tecnico2 = DirectorTecnico.new("nombre")
 
-    equipo2 = Equipo.new("El mejor equipo", tecnico2, base2, alero2, alaPivote2, escolta2, pivote2)
+    equipo2 = Equipo.new("El mejor equipo", tecnico2, base2, alero2, alaPivote2, escolta2, pivote2, base2)
 
 
     simulacion = Simulacion.new(equipo, equipo2,40)

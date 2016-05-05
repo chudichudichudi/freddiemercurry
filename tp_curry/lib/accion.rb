@@ -36,10 +36,40 @@ class TiroDe3 < Accion
       (jugador.puntosPorPartido / 2) * 0.01 + 
       max(0.3, jugador.asistenciasPorJuego * 0.025 * turno.pasesSucesivos)
     # entre 0 y 1
-    puts "ue tiro"
-    puts ue
+
     if rand() <= ue
       return ResultadoTiroDe3Acertado.new(self)
+    else
+      return ResultadoTiroFallado.new(self)
+    end
+  end
+end
+
+class TiroDe2 < Accion
+  attr_reader :tirador
+
+  def initialize(tirador)
+    @tirador = tirador
+  end
+  
+  def max(*values)
+    values.max
+  end
+ 
+  def to_s
+    return "#{@tirador} tira de 2"
+  end
+
+  def ejecutar(turno, resultadoDefensivo)
+    equipo = turno.atacante
+    jugador = @tirador
+    # falta twitter
+    ue = jugador.porcentajeDeTirosDeCancha + 
+      jugador.puntosPorPartido * 0.01 + 
+      max(0.3, jugador.asistenciasPorJuego * 0.025 * turno.pasesSucesivos)
+    # entre 0 y 1
+    if rand() <= ue
+      return ResultadoTiroDe2Acertado.new(self)
     else
       return ResultadoTiroFallado.new(self)
     end
@@ -55,16 +85,13 @@ class Pase < Accion
   end
   
   def to_s
-    return "#{@deQuien} se intenta pasar #{@aQuien}"
+    return "#{@deQuien} se la intenta pasar a #{@aQuien}"
   end
   
   def defensivaFallada(turno)
     jugador = @deQuien
     # falta twitter
     ue = 1 - jugador.perdidasPorJuego * 0.01
-
-    puts "ue pase"
-    puts ue
 
     # entre 0 y 1
     if rand() <= ue
@@ -94,9 +121,6 @@ class IntercepcionPase < Accion
     jugador = @quien
     # falta twitter
     ue = jugador.robosPorJuego * 0.2
-
-    puts "ue robo pase"
-    puts ue
 
     # entre 0 y 1
     if rand() <= ue
@@ -150,7 +174,7 @@ class ResultadoNulo < ResultadoAccion
     return accionOfensiva.defensivaFallada(turno)
   end
 end
-
+## TODO juntar estos dos y agregar parametro?
 class ResultadoTiroDe3Acertado < ResultadoAccion
   def initialize(accion)
     super(accion)
@@ -162,6 +186,21 @@ class ResultadoTiroDe3Acertado < ResultadoAccion
     
   def actualizaTurno(turno)
     turno.sumarPuntosAtacante(3)
+    turno.terminar
+  end
+end
+
+class ResultadoTiroDe2Acertado < ResultadoAccion
+  def initialize(accion)
+    super(accion)
+  end
+
+  def to_s
+    return "#{@accion.tirador} acerto (2 Puntos)"
+  end
+    
+  def actualizaTurno(turno)
+    turno.sumarPuntosAtacante(2)
     turno.terminar
   end
 end
