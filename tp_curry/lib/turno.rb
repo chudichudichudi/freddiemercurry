@@ -68,8 +68,7 @@ class Turno
     def simular
       # accionDefensiva
       accionOfensiva = @estrategiaAtacante.obtenerAccion(self)
-      ## XXX no usar instanceof!!
-      accionDefensiva = (accionOfensiva.class.name == "Pase")? 
+      accionDefensiva = accionOfensiva.esPase()? 
         IntercepcionPase.new(accionOfensiva, @defensor.base) : 
         AccionDefensivaNula.new(accionOfensiva)
       resolverAcciones(accionOfensiva, accionDefensiva)

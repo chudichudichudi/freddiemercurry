@@ -4,19 +4,51 @@
 require "resultado_accion.rb"
 
 class Accion
-  def initialize
-    
+  def ejecutar(turno)
+    raise "subclass responsability"
   end
-  
+end
+
+class AccionDefensiva < Accion
   def ejecutar(turno)
     raise "subclass responsability"
   end
 end
 
 
-class TiroDe3 < Accion
+class AccionOfensiva < Accion
+  def ejecutar(turno, resultadoDefensivo)
+    raise "subclass responsability"
+  end
+
+  def defensivaExitosa(turno)
+    raise "subclass responsability"
+  end
+
+  def defensivaFallada(turno)
+    raise "subclass responsability"
+  end
+
+  def esTiro
+    raise "subclass responsability"
+  end
+
+  def esPase
+    raise "subclass responsability"
+  end
+end  
+
+class TiroDe3 < AccionOfensiva
   attr_reader :tirador
 
+  def esTiro
+    return true
+  end
+  
+  def esPase
+    return false
+  end
+  
   def initialize(tirador)
     @tirador = tirador
   end
@@ -46,13 +78,21 @@ class TiroDe3 < Accion
   end
 end
 
-class TiroDe2 < Accion
+class TiroDe2 < AccionOfensiva
   attr_reader :tirador
 
   def initialize(tirador)
     @tirador = tirador
   end
   
+  def esTiro
+    return true
+  end
+  
+  def esPase
+    return false
+  end
+
   def max(*values)
     values.max
   end
@@ -85,6 +125,14 @@ class Pase < Accion
     @aQuien = aQuien
   end
   
+  def esTiro
+    return false
+  end
+  
+  def esPase
+    return true
+  end
+
   def to_s
     return "#{@deQuien} se la intenta pasar a #{@aQuien}"
   end
@@ -111,7 +159,7 @@ class Pase < Accion
   end
 end
 
-class IntercepcionPase < Accion
+class IntercepcionPase < AccionDefensiva
   attr_reader :pase, :quien
   def initialize(pase, quien)
     @pase = pase
@@ -133,10 +181,10 @@ class IntercepcionPase < Accion
   
 end
 
-class AccionDefensivaNula < Accion
+class AccionDefensivaNula < AccionDefensiva
   attr_reader :accionOfensiva
   def initialize(accionOfensiva)
-    @accionOfensiva
+    @accionOfensiva = accionOfensiva
   end
   
   def ejecutar(turno)
