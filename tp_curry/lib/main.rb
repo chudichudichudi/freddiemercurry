@@ -12,30 +12,128 @@ require_relative "estado.rb"
 require_relative "tecnico.rb"
 require_relative "estrategia.rb"
 
-base = Jugador.new("base1", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-alero = Jugador.new("alero1", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-alaPivote = Jugador.new("alaPivote1", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-escolta = Jugador.new("escolta1", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-pivote = Jugador.new("pivote1", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+  
+
+base = Jugador.new("Kyle Lowry", 0.342, 
+								 0.215,
+								 3.9, 
+								 6.7, 
+								 0.1, 
+								 1.6, 
+								 2.1, 
+								 15.5)
+alero = Jugador.new("Demarre Carroll", 0.415,
+									   0.372,
+									   4.0, 
+									   0.7, 
+									   0.4, 
+									   1.3, 
+									   2.1, 
+									   9.7)
+alaPivote = Jugador.new("Luis Scola", 0.188, 
+									  0.091,
+									  2.4,
+									  0.0,
+									  0.2, 
+									  0.3, 
+									  2.1, 
+									  1.6)
+
+
+escolta = Jugador.new("DeMar DeRozan",  0.338,
+										0.167, 
+										4.5, 
+										2.8, 
+										0.2, 
+										1.5, 
+										2.1, 
+										18.6)
+pivote = Jugador.new("Bismack Biyombo", 0.524, 
+										0.0, 
+										7.7, 
+										0.2, 
+										0.6, 
+										0.2, 
+										2.1, 
+										4.1)
 tecnico = DirectorTecnico.new("tecnico1", {
 	KPasesYTiro3.new(3) => 0.5, 
 	KPasesYTiro2.new(1) => 0.5
 	}, { HombreAHombre.new() => 1.0 })
 
-e1 = Equipo.new("El mejor equipo", tecnico, base, alero, alaPivote, escolta, pivote, alero)
+e1 = Equipo.new("toronto raptors", tecnico, base, alero, alaPivote, escolta, pivote, alero)
+
+#def initialize(nombre, 
+# porcentajeDeTirosDeCancha, fg%  
+# porcentajeDeTirosDeTresPuntos, 3p% 
+# rebotesPorPartido, rpg
+# asistenciasPorJuego, apg
+# bloqueosPorJuego, bpg
+# robosPorJuego, spg
+# perdidasPorJuego, to 
+# puntosPorPartido, ppg)
 
 
-base = Jugador.new("base2", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-alero = Jugador.new("alero2", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-alaPivote = Jugador.new("alaPivote2", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-escolta = Jugador.new("escolta2", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
-pivote = Jugador.new("pivote2", 0.45, 0.368, 3.7, 4.0, 1.4, 0.3, 2.1, 14.1)
+
+base = Jugador.new("Andre Miller", 0.5, 
+							0.5, 
+							0.7, 
+							1.0, 
+							0.0, 
+							0.0, 
+							2.1, 
+							2.3)
+alero = Jugador.new("Kawhi Leonard", 0.534, 
+							  0.556, 
+							  6.0, 
+							  2.4, 
+							  2.0, 
+							  2.0, 
+							  2.1, 
+							  22.3)
+alaPivote = Jugador.new("David West", 0.5, 
+									  0.5, 
+									  3.7, 
+									  1.4, 
+									  0.7, 
+									  0.9, 
+									  2.1, 
+									  6.1)
+
+#def initialize(nombre, 
+# porcentajeDeTirosDeCancha, fg%  
+# porcentajeDeTirosDeTresPuntos, 3p% 
+# rebotesPorPartido, rpg
+# asistenciasPorJuego, apg
+# bloqueosPorJuego, bpg
+# robosPorJuego, spg
+# perdidasPorJuego, to 
+# puntosPorPartido, ppg)
+
+
+escolta = Jugador.new("Manu Ginobilli", 0.469, 
+								  0.429, 
+								  3.1, 
+								  2.9, 
+								  0.3, 
+								  1.0, 
+								  2.1, 
+								  7.1)
+
+pivote = Jugador.new("Tim Duncan", 0.438, 
+								0.0, 
+								5.3, 
+								1.9, 
+								1.4, 
+								0.3, 
+								2.1, 
+								5.1)
 tecnico = DirectorTecnico.new("tecnico2", {
 	KPasesYTiro2.new(4) => 0.5, 
 	KPasesYTiro3.new(2) => 0.5
 	}, { HombreAHombre.new() => 1.0 })
 
-e2 = Equipo.new("El peor equipo", tecnico, base, alero, alaPivote, escolta, pivote, base)
+e2 = Equipo.new("San Antonio Spurs", tecnico, base, alero, alaPivote, escolta, pivote, base)
 
 
 simulacion = Simulacion.new(e1, e2, 40, 6)

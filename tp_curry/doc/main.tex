@@ -1,0 +1,28 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=1.5cm]{geometry}
+%
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{caratula/caratula}
+
+\begin{document}
+
+\input{caratula.tex}
+%Carátula
+\maketitle
+\newpage
+
+%Indice
+\tableofcontents
+\newpage
+
+\input{sections/01_intro.tex}
+\input{sections/02_metodologia.tex}
+\input{sections/03_armado_de_user_stories.tex}
+\input{sections/04_lenguajes_de_programacion.tex}
+\input{sections/05_desarrollo_y_modelado.tex}
+\input{sections/06_escenarios.tex}
+\input{sections/07_conclusiones.tex}
+
+\end{document}
