@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20160523T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Aceptando Desafio" note="" work="28800" start="20160523T000000Z" end="20160523T170000Z" work-start="20160523T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="Configuraci&#xF3;n de Ambientes de Desarrollo" note="" work="57600" start="20160523T170000Z" end="20160525T170000Z" work-start="20160524T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Investigaci&#xF3;n de Datastores Auditables y Transaccionables" note="" work="57600" start="20160523T170000Z" end="20160525T170000Z" work-start="20160524T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="4" name="Creaci&#xF3;n de bases de datos desarrollo" note="" work="28800" start="20160525T170000Z" end="20160526T170000Z" work-start="20160526T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="5" name="Modelado de desaf&#xED;os" note="" work="28800" start="20160525T170000Z" end="20160526T170000Z" work-start="20160526T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="6" name="Modelado de clientes" note="" work="28800" start="20160525T170000Z" end="20160526T170000Z" work-start="20160526T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="7" name="Desarrollo cliente funcionalidad de aceptar un desaf&#xED;o" note="" work="57600" start="20160526T170000Z" end="20160530T170000Z" work-start="20160527T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="8" name="Controlando la validez del usuario con el desaf&#xED;o (restricciones regionales)" note="" work="28800" start="20160530T170000Z" end="20160531T170000Z" work-start="20160531T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="20" type="FS"/>
+        <predecessor id="1" predecessor-id="7" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="9" name="Logueando la aceptacion de desafios" note="" work="28800" start="20160530T170000Z" end="20160531T170000Z" work-start="20160531T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="7" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="10" name="Ingresando datos de tarjeta de credito" note="" work="28800" start="20160523T000000Z" end="20160523T170000Z" work-start="20160523T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="11" name="Investigaci&#xF3;n de Tecnicas de Manejos de Datos Confidenciales" note="" work="57600" start="20160523T170000Z" end="20160525T170000Z" work-start="20160524T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="10" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="12" name="Creaci&#xF3;n de Modulo de Encriptaci&#xF3;n de Datos" note="" work="115200" start="20160525T170000Z" end="20160531T170000Z" work-start="20160526T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="11" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="13" name="Creaci&#xF3;n ambiente de Desarrollo de Encriptaci&#xF3;n de Tarjetas de Cr&#xE9;ditos (DMZ) " note="" work="28800" start="20160525T170000Z" end="20160526T170000Z" work-start="20160526T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="11" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="14" name=" Creaci&#xF3;n funcionalidad de ingresar tarjeta de cr&#xE9;dito" note="" work="86400" start="20160531T170000Z" end="20160603T170000Z" work-start="20160601T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="13" type="FS"/>
+        <predecessor id="1" predecessor-id="12" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="15" name="Transfiriendo dinero al sistema" note="" work="86400" start="20160603T170000Z" end="20160608T170000Z" work-start="20160606T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="14" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="16" name="Creaci&#xF3;n funcionalidad de cobrar tarjeta de credito" note="" work="28800" start="20160608T170000Z" end="20160609T170000Z" work-start="20160609T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="15" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="17" name="Creaci&#xF3;n funcionalidad de acreditar dinero en la cuenta del usuario" note="" work="28800" start="20160608T170000Z" end="20160609T170000Z" work-start="20160609T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+        <predecessor id="1" predecessor-id="15" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="18" name="Homologaci&#xF3;n de standards de manejo de datos confidenciales" note="" work="86400" start="20160609T170000Z" end="20160614T170000Z" work-start="20160610T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="17" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="19" name="Logueando la transferencia de dinero al sistema" note="" work="28800" start="20160609T170000Z" end="20160610T170000Z" work-start="20160610T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="17" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="20" name="Modelado de Restricciones sobre los desaf&#xED;os (ranking, regionales, gratis/pago)" note="" work="57600" start="20160523T000000Z" end="20160524T170000Z" work-start="20160523T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="21" name="Modelado de Premios" note="" work="28800" start="20160523T000000Z" end="20160523T170000Z" work-start="20160523T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="22" name="Asignaci&#xF3;n de Jugadores a Desaf&#xED;os" note="" work="28800" start="20160526T170000Z" end="20160527T170000Z" work-start="20160527T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="23" name="Asignaci&#xF3;n de Premio a Desaf&#xED;o" note="" work="28800" start="20160526T170000Z" end="20160527T170000Z" work-start="20160527T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="21" type="FS"/>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="24" name="Logueo de Movimientos de Usuario en los desafios" note="" work="57600" start="20160527T170000Z" end="20160531T170000Z" work-start="20160530T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="23" type="FS"/>
+        <predecessor id="1" predecessor-id="22" type="FS"/>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+        <predecessor id="1" predecessor-id="5" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources/>
+  <allocations/>
+</project>
